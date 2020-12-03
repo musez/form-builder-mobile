@@ -6,17 +6,17 @@
     </div>
 </template>
 <script>
-export default {
-    name: "head-actions",
-    data: function () {
-        return {
-            isdisable: false
-        }
-    },
-    methods: {
-        save: function () {
-            drag.$emit('save')
+    export default{
+        name: "head-actions",
+        data: function () {
+            return {
+                isdisable: false
+            }
+        },
+        methods: {
+            save: function () {
+                drag.$emit('save')
+            }
         }
     }
-}
 </script>
