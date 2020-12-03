@@ -6,7 +6,7 @@
                 <span class="fieldinfo">最多10个字</span>
             </div>
             <div class="fieldblock">
-                <input type="text" @input="changeComponent" maxlength="10" v-model="supportSetting.defaultLable">
+                <input type="text" @input="changeComponent" maxlength="10" v-model="supportSetting.defaultLabel">
             </div>
         </div>
         <div v-if="supportSetting.label2" class="wf-field wf-setting-label">
@@ -15,7 +15,7 @@
                 <span class="fieldinfo">最多10个字</span>
             </div>
             <div class="fieldblock">
-                <input type="text" @input="changeComponent" maxlength="10" v-model="supportSetting.defaultLable2">
+                <input type="text" @input="changeComponent" maxlength="10" v-model="supportSetting.defaultLabel2">
             </div>
         </div>
         <div v-if="supportSetting.action" class="wf-field wf-setting-label">
@@ -61,7 +61,7 @@
                 <span>可以输入链接跳转地址</span>
             </div>
             <div class="fieldblock">
-                <textarea type="text" @input="changeComponent"  v-model="supportSetting.defaultHref">
+                <textarea type="text" @input="changeComponent" v-model="supportSetting.defaultHref">
                 </textarea>
             </div>
         </div>
@@ -161,7 +161,7 @@
         <div v-if="supportSetting.print" class="wf-field wf-setting-print">
             <div class="fieldname">打印</div>
             <label class="fieldblock">
-                <input type="checkbox"  @change="changeComponent" value="1" v-model="supportSetting.defaultPrint">
+                <input type="checkbox" @change="changeComponent" value="1" v-model="supportSetting.defaultPrint">
                 <span class="verticalmiddle">参与打印</span>
                 <span class="verticalmiddle">（如不勾选打印时，不显示此项）</span>
             </label>
@@ -169,63 +169,63 @@
     </div>
 </template>
 <script>
-    export default{
-        data: function () {
-            return {
-                supportSetting: {}
-            }
-        },
-        methods: {
-            add: function (e) {
-                e.stopPropagation()
-                e.preventDefault()
-                let index = e.currentTarget.getAttribute('data-index');
-                for (let i = 0, l = this.supportSetting.defaultOptions.length; i < l; i++) {
-                    let has = false;
-                    for (let item in this.supportSetting.defaultOptions) {
-                        if (this.supportSetting.defaultOptions[item].idx == (i + 1)) {
-                            has = true
-                        }
-                    }
-                    if (!has) {
-                        this.supportSetting.defaultOptions.splice((+index + 1), 0, {idx: i + 1, text: '选项' + (i + 1)})
-                        return
-                    }
-                }
-                if (index == this.supportSetting.defaultOptions.length - 1) {
-                    this.supportSetting.defaultOptions.push({
-                        idx: (this.supportSetting.defaultOptions.length + 1),
-                        text: '选项' + (this.supportSetting.defaultOptions.length + 1)
-                    })
-                } else {
-                    this.supportSetting.defaultOptions.splice((+index + 1), 0, {
-                        idx: (this.supportSetting.defaultOptions.length + 1),
-                        text: '选项' + (this.supportSetting.defaultOptions.length + 1)
-                    })
-                }
-            },
-            del: function (e) {
-                e.stopPropagation()
-                e.preventDefault()
-                let index = e.currentTarget.getAttribute('data-index');
-                this.supportSetting.defaultOptions.splice(index, 1)
-            },
-            changeComponent: function () {
-                drag.$emit("changeComponent", this.supportSetting);
-            }
-        },
-
-        created: function () {
-            let self = this
-            drag.$on("selectComponent", function (obj) {
-                self.supportSetting = {}
-                for (let i = 0; i < obj.supportSetting.length; i++) {
-                    self.supportSetting[obj.supportSetting[i]] = true
-                }
-                self.supportSetting = Object.assign({}, self.supportSetting, obj)
-            })
-        },
-        updated: function () {
+export default {
+    data: function () {
+        return {
+            supportSetting: {}
         }
+    },
+    methods: {
+        add: function (e) {
+            e.stopPropagation()
+            e.preventDefault()
+            let index = e.currentTarget.getAttribute('data-index');
+            for (let i = 0, l = this.supportSetting.defaultOptions.length; i < l; i++) {
+                let has = false;
+                for (let item in this.supportSetting.defaultOptions) {
+                    if (this.supportSetting.defaultOptions[item].idx == (i + 1)) {
+                        has = true
+                    }
+                }
+                if (!has) {
+                    this.supportSetting.defaultOptions.splice((+index + 1), 0, {idx: i + 1, text: '选项' + (i + 1)})
+                    return
+                }
+            }
+            if (index == this.supportSetting.defaultOptions.length - 1) {
+                this.supportSetting.defaultOptions.push({
+                    idx: (this.supportSetting.defaultOptions.length + 1),
+                    text: '选项' + (this.supportSetting.defaultOptions.length + 1)
+                })
+            } else {
+                this.supportSetting.defaultOptions.splice((+index + 1), 0, {
+                    idx: (this.supportSetting.defaultOptions.length + 1),
+                    text: '选项' + (this.supportSetting.defaultOptions.length + 1)
+                })
+            }
+        },
+        del: function (e) {
+            e.stopPropagation()
+            e.preventDefault()
+            let index = e.currentTarget.getAttribute('data-index');
+            this.supportSetting.defaultOptions.splice(index, 1)
+        },
+        changeComponent: function () {
+            drag.$emit("changeComponent", this.supportSetting);
+        }
+    },
+
+    created: function () {
+        let self = this
+        drag.$on("selectComponent", function (obj) {
+            self.supportSetting = {}
+            for (let i = 0; i < obj.supportSetting.length; i++) {
+                self.supportSetting[obj.supportSetting[i]] = true
+            }
+            self.supportSetting = Object.assign({}, self.supportSetting, obj)
+        })
+    },
+    updated: function () {
     }
+}
 </script>

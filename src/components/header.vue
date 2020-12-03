@@ -10,15 +10,17 @@
         <headactions></headactions>
     </div>
 </template>
+
 <script type="text/ecmascript-6">
-    import headactions from "@/components/headActions"
-    export default{
-        name: 'header',
-        data(){
-            return {}
-        },
-        components:{
-            headactions
-        }
+import headactions from "@/components/headActions"
+
+export default {
+    name: 'header',
+    data() {
+        return {}
+    },
+    components: {
+        headactions
     }
+}
 </script>
